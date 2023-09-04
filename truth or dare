@@ -1,0 +1,27 @@
+import pyautogui
+import random
+
+truthList = ['what is your biggest fear?','What is the most embarrassing thing you\'ve ever done?' ,'When was the last time you cried?' ,'Have you ever broken the law? ']
+dareList = ['What is the most embarrassing photo of you?','Yell out the first word that comes to your mind.' ,'Hold three ice cubes in your mouth until they melt.' ,'Try to lick your elbow.']
+
+while True :
+    start = pyautogui.confirm(text='do you want to play ', title='truth or dare game', buttons=['yes', 'no'])
+    done = undone = 0
+    if start == 'yes' :
+        mood = pyautogui.confirm(text='choose your game mood', title='game mood', buttons=['1 player', '2 player'])
+        rounds = int(pyautogui.prompt(text='how many rounds do you want to play?', title='truth or dare' , default='2'))
+        for round in range(1,rounds+1) :
+                choice = pyautogui.confirm(text='chose between\ntruth    or    dare', title=f'round {round}', buttons=['truth', 'dare'])
+                if choice == 'truth' :
+                    question = pyautogui.confirm(text=f'{random.choice(truthList)}', title=f'round {round} : truth', buttons=['done', 'undone'])
+                elif choice == 'dare' :
+                    question = pyautogui.confirm(text=f'{random.choice(dareList)}', title=f'round {round} : dare', buttons=['done', 'undone'])
+                if question == 'done' :
+                    done += 1
+                    pyautogui.alert(text=f'your score so far\n done = {done} \nundone = {undone} ', title='score', button='OK')
+                elif question == 'undone' :
+                    undone += 1
+                    pyautogui.alert(text=f'your score so far\n done = {done} \nundone = {undone} ', title='score', button='OK')
+
+    elif start == 'no' :
+        break
